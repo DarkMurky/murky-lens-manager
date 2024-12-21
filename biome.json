@@ -30,6 +30,6 @@
     }
   },
   "files": {
-    "ignore": ["src/components/ui/**/*.tsx", "src/hooks/use-toast.ts"]
+    "ignore": ["src/components/ui/**/*.tsx", "src/hooks/use-toast.ts", "tailwind.config.js"]
   }
 }

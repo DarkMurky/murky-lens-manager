@@ -29,6 +29,7 @@
 		--chart-5: 27 87% 67%;
 		--radius: 0.5rem;
 		--footer-height: 3.75rem;
+		--header-height: 5.625rem;
 	}
 	.dark {
 		--background: 240 10% 3.9%;
