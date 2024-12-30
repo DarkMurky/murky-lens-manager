@@ -25,7 +25,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ARG DB_HOST
-ENV DB_HOST=${DB_HOST}
+ENV NEXT_PUBLIC_DB_HOST=${DB_HOST}
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -45,7 +45,7 @@ FROM base AS runner
 WORKDIR /app
 
 ARG DB_HOST
-ENV DB_HOST=${DB_HOST}
+ENV NEXT_PUBLIC_DB_HOST=${DB_HOST}
 
 ENV NODE_ENV=production
 
