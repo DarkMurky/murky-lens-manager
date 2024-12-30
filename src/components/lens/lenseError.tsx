@@ -1,12 +1,4 @@
-"use client";
-import { useEffect } from "react";
-
-// biome-ignore lint/suspicious/noShadowRestrictedNames: NextJS naming convention for error
-export default function Error({ error }: { error: Error }) {
-	useEffect(() => {
-		console.error(error);
-	}, [error]);
-
+export default function LenseError() {
 	return (
 		<div className="flex items-center justify-center h-main-content">
 			<div className="flex items-center justify-center">

@@ -32,7 +32,7 @@ export default function LensAdd({ addLense }: IlensAddProps) {
 					<CardContent className="h-20 " />
 					<CardFooter className="flex justify-between h-14" />
 					<div className="absolute inset-0 flex items-center justify-center">
-						<Plus className="h-16 w-16" onClick={() => setOpenLensAdd(true)} />
+						<Plus className="h-16 w-16 cursor-pointer" onClick={() => setOpenLensAdd(true)} />
 					</div>
 				</Card>
 			)}

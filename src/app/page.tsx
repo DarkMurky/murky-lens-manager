@@ -1,63 +1,64 @@
+"use client";
+import LenseError from "@/components/lens/lenseError";
 import LensAdd from "@/components/lens/lensAdd";
 import LensItem from "@/components/lens/lensItem";
-import { requestUrls } from "@/constants/request";
+import LenseLoading from "@/components/lens/lenseLoading";
+import { fetchLenses, editLense, addLense, deleteLense } from "@/services/lensService"; // Import the functions
 import type { IgetLensesResponse, IlensItem } from "@/types";
-import { revalidatePath } from "next/cache";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-	const editLense = async (id: number, newLense: IlensItem) => {
-		"use server";
+export default function Home() {
+	const [lenses, setLenses] = useState<IlensItem[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<boolean>(false);
 
-		await fetch(`${process.env.DB_HOST}${requestUrls.editLense(id)}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newLense),
-		});
-
-		revalidatePath("/");
+	const handleEditLense = async (id: number, newLense: IlensItem) => {
+		await editLense(id, newLense);
+		setLenses((prevLenses) => prevLenses.map((lens) => (lens.id === id ? { ...lens, ...newLense } : lens)));
 	};
 
-	const addLense = async (newLense: IlensItem) => {
-		"use server";
-
-		await fetch(`${process.env.DB_HOST}${requestUrls.createLense}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newLense),
-		});
-
-		revalidatePath("/");
+	const handleAddLense = async (newLense: IlensItem) => {
+		await addLense(newLense);
+		setLenses((prevLenses) => [...prevLenses, newLense]);
 	};
 
-	const deleteLense = async (id: number) => {
-		"use server";
-
-		await fetch(`${process.env.DB_HOST}${requestUrls.deleteLense(id)}`, {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-
-		revalidatePath("/");
+	const handleDeleteLense = async (id: number) => {
+		await deleteLense(id);
+		setLenses((prevLenses) => prevLenses.filter((lens) => lens.id !== id));
 	};
 
-	const res = await fetch(`${process.env.DB_HOST}${requestUrls.getAllLenses}`);
-	const lenses: IgetLensesResponse = await res.json();
+	useEffect(() => {
+		const fetchLensesData = async () => {
+			setLoading(true);
+			setError(false);
+			try {
+				const data: IgetLensesResponse = await fetchLenses();
+				setLenses(data.payload);
+			} catch (err: unknown) {
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchLensesData();
+	}, []);
+
+	if (loading) {
+		return <LenseLoading />;
+	}
+
+	if (error) {
+		return <LenseError />;
+	}
 
 	return (
 		<div className="container mx-auto p-2 overflow-auto mb-main-offset">
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-				{lenses.payload
-					.sort((a, b) => a.id - b.id)
-					.map((lensItem) => (
-						<LensItem editLense={editLense} deleteLense={deleteLense} {...lensItem} key={lensItem.id} />
-					))}
-				<LensAdd addLense={addLense} />
+				{lenses.map((lensItem) => (
+					<LensItem editLense={handleEditLense} deleteLense={handleDeleteLense} {...lensItem} key={lensItem.id} />
+				))}
+				<LensAdd addLense={handleAddLense} />
 			</div>
 		</div>
 	);
