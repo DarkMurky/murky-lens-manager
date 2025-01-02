@@ -27,6 +27,11 @@ jobs:
         run: |
           docker build -t kvait/murky-manager-app:dev .
 
+      - name: List files after build
+        run: |
+          echo "Listing files in the current directory:"
+          ls -al
+
       - name: Push Docker image
         run: |
           docker push kvait/murky-manager-app:dev
