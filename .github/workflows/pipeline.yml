@@ -32,6 +32,11 @@ jobs:
           echo "Listing files in the current directory:"
           ls -al
 
+      - name: Print .env
+        run: |
+          echo "Printin env:"
+          cat .env
+
       - name: Push Docker image
         run: |
           docker push kvait/murky-manager-app:dev
