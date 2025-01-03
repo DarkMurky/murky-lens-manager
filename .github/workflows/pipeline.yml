@@ -13,8 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Create .env file
-      #   run: echo "NEXT_PUBLIC_DB_HOST=http://localhost" > .env
+      - name: Create .env file
+        run: echo "NEXT_PUBLIC_DB_HOST=http://view.cursetheweb.online" > .env
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
