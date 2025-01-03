@@ -28,6 +28,7 @@ export default function Home() {
 	};
 
 	useEffect(() => {
+		console.log("URL1", process.env.NEXT_PUBLIC_DB_HOST)
 		const fetchLensesData = async () => {
 			setLoading(true);
 			setError(false);
