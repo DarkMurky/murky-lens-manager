@@ -1,6 +1,6 @@
 export const requestUrls = {
-	getAllLenses: "/lenses",
-	createLense: "/lenses",
-	editLense: (id: number) => `/lenses/${id}`,
-	deleteLense: (id: number) => `/lenses/${id}`,
+	getAllLenses: "/api/lenses",
+	createLense: "/api/lenses",
+	editLense: (id: number) => `/api/lenses/${id}`,
+	deleteLense: (id: number) => `/api/lenses/${id}`,
 };
