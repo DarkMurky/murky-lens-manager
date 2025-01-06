@@ -68,6 +68,11 @@ jobs:
         with:
           repository: DarkMurky/murky-view-infrasturcture
         
+      - name: Print Directory
+        run: |
+          echo "Listing contents of the directory:"
+          ls -a
+
       - name: Install Helm
         uses: azure/setup-helm@v1
 
