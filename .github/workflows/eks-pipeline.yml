@@ -45,9 +45,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Get EKS Cluster Credentials
-        run: |
-          aws eks update-kubeconfig --name ${{ secrets.DEV_AWS_EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+      - name: Create kubeconfig file
+        run: echo "${{ secrets.KUBE_CONFIG_DATA }}" > ${{ github.workspace }}/kubeconfig
 
       - name: Checkout Helm Chart Repository
         uses: actions/checkout@v2
@@ -63,5 +62,7 @@ jobs:
         uses: azure/setup-helm@v1
 
       - name: Deploy with Helm
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
           helm upgrade --install my-release ./k8s/murky-view-chart --set image.repository=${{ env.DOCKER_IMAGE }} --set image.tag=${{ env.DOCKER_TAG }} --namespace default
