@@ -55,8 +55,7 @@ jobs:
           repository: DarkMurky/murky-view-infrasturcture
         
       - name: Install Helm
-        run: |
-          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3.sh | bash
+        uses: azure/setup-helm@v1
 
       - name: Deploy with Helm
         run: |
