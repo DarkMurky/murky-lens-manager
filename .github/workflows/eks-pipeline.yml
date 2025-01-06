@@ -65,4 +65,4 @@ jobs:
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
-          helm upgrade --install my-release ./k8s/murky-view-chart --set image.repository=${{ env.DOCKER_IMAGE }} --set image.tag=${{ env.DOCKER_TAG }} --namespace default
+          helm upgrade --install my-release ./k8s/murky-view-chart
