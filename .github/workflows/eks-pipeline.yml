@@ -5,18 +5,17 @@ on:
     branches:
       - eks
 
-env:
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-  DOCKER_REPOSITORY: murky-manager-app
-  DOCKER_IMAGE: ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPOSITORY }}
-  DOCKER_TAG: dev
-
 jobs:                                            
   release:                                       
     name: Release                                
     runs-on: ubuntu-latest         
-              
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKER_REPOSITORY: murky-manager-app
+      DOCKER_TAG: dev
+      DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/murky-manager-app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,7 +27,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: docker.io
-          username: ${{ env.DOCKERHUB_USERNAME}}
+          username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
