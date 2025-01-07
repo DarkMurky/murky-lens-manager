@@ -62,6 +62,6 @@ jobs:
         run: |
           helm upgrade --install my-release ./k8s/murky-view-chart
 
-      - name: Install Ingress NGINX
-        run: |
-          helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx
+      # - name: Install Ingress NGINX
+      #   run: |
+      #     helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx
