@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy with Helm
         run: |
-          helm install my-release ./k8s/murky-view-chart
+          helm upgrade my-release ./k8s/murky-view-chart
 
       # - name: Install Ingress NGINX
       #   run: |
