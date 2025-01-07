@@ -56,11 +56,11 @@ jobs:
           repository: DarkMurky/murky-view-infrasturcture
 
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v3.16.4
 
       - name: Deploy with Helm
         run: |
-          helm upgrade my-release ./k8s/murky-view-chart
+          helm upgrade --install my-release ./k8s/murky-view-chart
 
       # - name: Install Ingress NGINX
       #   run: |
