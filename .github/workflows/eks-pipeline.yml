@@ -15,6 +15,7 @@ jobs:
       DOCKER_REPOSITORY: murky-manager-app
       DOCKER_TAG: dev
       DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/murky-manager-app
+      DEV_AWS_EKS_CLUSTER_NAME: ${{ secrets.DEV_AWS_EKS_CLUSTER_NAME }}  # Add your EKS cluster name here
 
     steps:
       - name: Checkout code
@@ -45,8 +46,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Create kubeconfig file
-        run: echo "${{ secrets.KUBE_CONFIG_DATA }}" > ${{ github.workspace }}/kubeconfig
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name ${{ env.DEV_AWS_EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
 
       - name: Checkout Helm Chart Repository
         uses: actions/checkout@v2
@@ -57,14 +59,10 @@ jobs:
         uses: azure/setup-helm@v1
 
       - name: Deploy with Helm
-        env:
-          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
           helm upgrade --install my-release ./k8s/murky-view-chart
 
       - name: Install Ingress NGINX
-        env:
-          KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
           helm upgrade --install ingress-nginx ingress-nginx \
             --repo https://kubernetes.github.io/ingress-nginx \
