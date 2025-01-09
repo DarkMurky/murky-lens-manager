@@ -14,7 +14,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       DOCKER_REPOSITORY: murky-manager-app
       DOCKER_TAG: dev
-      DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/murky-manager-app
+      DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_REPOSITORY }}
       DEV_AWS_EKS_CLUSTER_NAME: ${{ secrets.DEV_AWS_EKS_CLUSTER_NAME }}
 
     steps:
