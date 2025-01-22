@@ -67,6 +67,7 @@ jobs:
            kubectl get pods --all-namespaces
 
       - name: Create secrets file
+        working-directory: ./k8s/terraform
         run: |
           echo "db-user: ${{ secrets.DATABASE_USER}}" > secrets.txt
           echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secrets.txt
