@@ -49,6 +49,14 @@ jobs:
           issue-body: "Review the terraform plan"
           exclude-workflow-initiator-as-approver: false
 
-      # - name: Update kubeconfig context
-      #   run: |
-      #     aws eks update-kubeconfig --name ${{ env.DEV_AWS_EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+      - name: Terraform apply
+        run: |
+          terraform apply
+
+      - name: Update kubeconfig context
+        run: |
+          aws eks update-kubeconfig --name ${{ env.DEV_AWS_EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+
+      - name: Get pods
+        run: |
+           kubectl get pods -all-namespaces
