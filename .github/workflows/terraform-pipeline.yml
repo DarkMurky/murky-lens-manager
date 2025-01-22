@@ -25,11 +25,18 @@ jobs:
         with:
             terraform_version: 1.10.4
 
+      - name: Checkout Helm chart repository
+        uses: actions/checkout@v2
+        with:
+          repository: DarkMurky/murky-view-infrasturcture
+
       - name: Terraform init and validate
+        working-directory: ./k8s/terraform
         run: |
           terraform init
 
       - name: Terraform plan
+        working-directory: ./k8s/terraform
         run: |
           terraform plan
 
@@ -45,8 +52,3 @@ jobs:
       # - name: Update kubeconfig context
       #   run: |
       #     aws eks update-kubeconfig --name ${{ env.DEV_AWS_EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
-
-      # - name: Checkout Helm chart repository
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: DarkMurky/murky-view-infrasturcture
