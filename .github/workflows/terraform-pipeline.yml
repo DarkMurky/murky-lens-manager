@@ -66,6 +66,11 @@ jobs:
         run: |
            kubectl get pods --all-namespaces
 
+      - name: Create secrets file
+        run: |
+          echo "db-user: ${{ secrets.DATABASE_USER}}" > secrets.txt
+          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secrets.txt
+
       - name: Deploy with Helm
         run: |
           helm upgrade --install dev-lens-view ./k8s/murky-view-chart -f ./k8s/murky-view-chart/values-dev.yml
