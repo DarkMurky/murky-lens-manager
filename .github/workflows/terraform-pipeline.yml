@@ -50,6 +50,7 @@ jobs:
           exclude-workflow-initiator-as-approver: false
 
       - name: Terraform apply
+        working-directory: ./k8s/terraform
         run: |
           terraform apply
 
