@@ -60,10 +60,6 @@ jobs:
 
       - name: Get pods
         run: |
-           kubectl create namespace dev
-
-      - name: Get pods
-        run: |
            kubectl get pods --all-namespaces
 
       - name: Create secrets file
