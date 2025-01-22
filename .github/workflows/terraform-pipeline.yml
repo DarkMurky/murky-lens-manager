@@ -52,7 +52,7 @@ jobs:
       - name: Terraform apply
         working-directory: ./k8s/terraform
         run: |
-          terraform apply
+          terraform apply -auto-approve
 
       - name: Update kubeconfig context
         run: |
