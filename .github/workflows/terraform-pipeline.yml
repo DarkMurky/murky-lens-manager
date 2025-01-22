@@ -30,29 +30,29 @@ jobs:
         with:
           repository: DarkMurky/murky-view-infrasturcture
 
-      - name: Terraform init and validate
-        working-directory: ./k8s/terraform
-        run: |
-          terraform init
+      # - name: Terraform init and validate
+      #   working-directory: ./k8s/terraform
+      #   run: |
+      #     terraform init
 
-      - name: Terraform plan
-        working-directory: ./k8s/terraform
-        run: |
-          terraform plan
+      # - name: Terraform plan
+      #   working-directory: ./k8s/terraform
+      #   run: |
+      #     terraform plan
 
-      - uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ secrets.TOKEN_GITHUB }}
-          approvers: DarkMurky
-          minimum-approvals: 1
-          issue-title: "Deploying to dev"
-          issue-body: "Review the terraform plan"
-          exclude-workflow-initiator-as-approver: false
+      # - uses: trstringer/manual-approval@v1
+      #   with:
+      #     secret: ${{ secrets.TOKEN_GITHUB }}
+      #     approvers: DarkMurky
+      #     minimum-approvals: 1
+      #     issue-title: "Deploying to dev"
+      #     issue-body: "Review the terraform plan"
+      #     exclude-workflow-initiator-as-approver: false
 
-      - name: Terraform apply
-        working-directory: ./k8s/terraform
-        run: |
-          terraform apply -auto-approve
+      # - name: Terraform apply
+      #   working-directory: ./k8s/terraform
+      #   run: |
+      #     terraform apply -auto-approve
 
       - name: Update kubeconfig context
         run: |
@@ -60,4 +60,4 @@ jobs:
 
       - name: Get pods
         run: |
-           kubectl get pods -all-namespaces
+           kubectl get pods --all-namespaces
