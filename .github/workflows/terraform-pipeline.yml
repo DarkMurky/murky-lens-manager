@@ -12,7 +12,7 @@ jobs:
     env:
       ENVIRONMENT: dev
       HELM_RELEASE_NAME: ${{ secrets.ENVIRONMENT }}-lens-view
-      AWS_EKS_CLUSTER_NAME: ${{ secrets.ENVIRONMENT }}-${{ secrets.AWS_EKS_CLUSTER_NAME }}
+      AWS_EKS_CLUSTER_NAME: ${{ env.ENVIRONMENT }}-${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
     steps:
       - name: Set up AWS CLI
@@ -61,9 +61,6 @@ jobs:
       #   working-directory: ./k8s/terraform
       #   run: |
       #     terraform apply -auto-approve -var="environment=${{ env.ENVIRONMENT }}"
-
-      - name: Debug AWS EKS Cluster Name
-        run: echo ${{ env.AWS_EKS_CLUSTER_NAME }}
 
       - name: Update kubeconfig context
         run: |
