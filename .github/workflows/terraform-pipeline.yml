@@ -65,8 +65,8 @@ jobs:
       - name: Create secrets file
         working-directory: ./k8s/murky-view-chart
         run: |
-          echo "db-user: ${{ secrets.DATABASE_USER}}" > secret
-          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secret
+          echo "db-user: ${{ secrets.DATABASE_USER}}" > secrets
+          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secrets
 
       - name: Deploy with Helm
         run: |
