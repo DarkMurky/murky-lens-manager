@@ -65,8 +65,8 @@ jobs:
       - name: Create secrets file
         working-directory: ./k8s/terraform
         run: |
-          echo "db-user: ${{ secrets.DATABASE_USER}}" > secret.txt
-          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secret.txt
+          echo "db-user: ${{ secrets.DATABASE_USER}}" > secret
+          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secret
 
       - name: Deploy with Helm
         run: |
