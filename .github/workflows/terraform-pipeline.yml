@@ -12,9 +12,13 @@ jobs:
     env:
       ENVIRONMENT: dev
       HELM_RELEASE_NAME: ${{ secrets.ENVIRONMENT }}-lens-view
-      AWS_EKS_CLUSTER_NAME: ${{ env.ENVIRONMENT }}-${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
     steps:
+      - name: Set up environment variables
+        id: vars
+        run: |
+          echo "AWS_EKS_CLUSTER_NAME=${{ env.ENVIRONMENT }}-${{ secrets.AWS_EKS_CLUSTER_NAME }}" >> $GITHUB_ENV
+
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
