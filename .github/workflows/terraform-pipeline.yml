@@ -63,7 +63,8 @@ jobs:
       #     terraform apply -auto-approve -var="environment=${{ env.ENVIRONMENT }}"
 
       - name: Debug AWS EKS Cluster Name
-        run: echo "AWS EKS Cluster Name: ${{ env.AWS_EKS_CLUSTER_NAME }}"
+        run: |
+          echo "AWS EKS Cluster Name: ${{ env.AWS_EKS_CLUSTER_NAME }}"
 
       - name: Update kubeconfig context
         run: |
