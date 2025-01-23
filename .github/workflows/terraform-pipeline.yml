@@ -63,16 +63,10 @@ jobs:
            kubectl get pods --all-namespaces
 
       - name: Create secrets file
-        working-directory: ./k8s/terraform
+        working-directory: ./k8s/murky-view-chart
         run: |
           echo "db-user: ${{ secrets.DATABASE_USER}}" > secret
           echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secret
-
-      - name: List directory and print secret file
-        working-directory: ./k8s/terraform
-        run: |
-          ls -l
-          cat secret
 
       - name: Deploy with Helm
         run: |
