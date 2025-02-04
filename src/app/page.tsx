@@ -3,7 +3,7 @@ import LenseError from "@/components/lens/lenseError";
 import LensAdd from "@/components/lens/lensAdd";
 import LensItem from "@/components/lens/lensItem";
 import LenseLoading from "@/components/lens/lenseLoading";
-import { fetchLenses, editLense, addLense, deleteLense } from "@/services/lensService"; // Import the functions
+import { fetchLenses, editLense, addLense, deleteLense } from "@/services/lensService";
 import type { IgetLensesResponse, IlensItem } from "@/types";
 import { useEffect, useState } from "react";
 
