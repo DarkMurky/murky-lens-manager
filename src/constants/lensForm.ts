@@ -1,4 +1,4 @@
-import type { IformConfig } from "@/types";
+import type { IformConfig } from "@/types/lens";
 
 export const FormConfig: IformConfig = {
 	fields: [

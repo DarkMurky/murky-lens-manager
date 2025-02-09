@@ -1,5 +1,5 @@
 import { requestUrls } from "@/constants/request";
-import type { IlensItem, IgetLensesResponse } from "@/types";
+import type { IgetLensesResponse, IlensItem } from "@/types/lens";
 
 const baseUrl = process.env.NEXT_PUBLIC_DB_HOST;
 

@@ -9,14 +9,16 @@ export const lensValidationSchema = yup.object({
 
 export const loginValidationSchema = yup.object({
 	username: yup.string().trim().required("Username is required."),
+	email: yup.string().trim().email("Invalid email format.").required("Email is required."),
 	password: yup.string().required("Password is required."),
 });
 
 export const registerValidationSchema = yup.object({
 	username: yup.string().trim().required("Username is required."),
+	email: yup.string().trim().email("Invalid email format.").required("Email is required."),
 	password: yup.string().required("Password is required."),
 	confirmPassword: yup
 		.string()
-		.oneOf([yup.ref("password")], "Passwords must match")
+		.oneOf([yup.ref("password")], "Passwords must match.")
 		.required("Confirm password is required."),
 });

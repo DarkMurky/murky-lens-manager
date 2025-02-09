@@ -17,12 +17,6 @@ export interface IformConfig {
 	fields: IlensFormField[];
 }
 
-export interface IaccountFormValues {
-	username: string;
-	password: string;
-	confirmPassword?: string;
-}
-
 export interface IgetLensesResponse {
 	success: true;
 	message: string;

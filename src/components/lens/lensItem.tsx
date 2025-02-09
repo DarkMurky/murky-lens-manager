@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { lensValidationSchema } from "@/constants/schema";
-import type { IlensItem } from "@/types";
+import type { IlensItem } from "@/types/lens";
 import { CirclePlay, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import LensForm from "./lensForm";

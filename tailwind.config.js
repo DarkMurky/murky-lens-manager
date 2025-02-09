@@ -66,6 +66,7 @@ module.exports = {
 			width: {
 				"form-button": "3rem",
 				"lens-card": "auto",
+				"form-card": "25rem"
 			},
 			margin: {
 				"main-offset": "var(--footer-height)",

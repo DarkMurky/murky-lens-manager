@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormConfig } from "@/constants/lensForm";
-import type { IlensItem } from "@/types";
+import type { IlensItem } from "@/types/lens";
 import { useFormik } from "formik";
 import { PencilOff, Save } from "lucide-react";
 import type * as yup from "yup";

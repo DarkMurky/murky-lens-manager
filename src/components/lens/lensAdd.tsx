@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { lensValidationSchema } from "@/constants/schema";
-import type { IlensItem } from "@/types";
+import type { IlensItem } from "@/types/lens";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import LensForm from "./lensForm";

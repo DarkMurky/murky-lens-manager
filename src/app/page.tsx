@@ -1,10 +1,10 @@
 "use client";
-import LenseError from "@/components/lens/lenseError";
 import LensAdd from "@/components/lens/lensAdd";
 import LensItem from "@/components/lens/lensItem";
+import LenseError from "@/components/lens/lenseError";
 import LenseLoading from "@/components/lens/lenseLoading";
-import { fetchLenses, editLense, addLense, deleteLense } from "@/services/lensService"; // Import the functions
-import type { IgetLensesResponse, IlensItem } from "@/types";
+import { addLense, deleteLense, editLense, fetchLenses } from "@/services/lensService"; // Import the functions
+import type { IgetLensesResponse, IlensItem } from "@/types/lens";
 import { useEffect, useState } from "react";
 
 export default function Home() {
