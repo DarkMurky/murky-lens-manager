@@ -2,7 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { lensValidationSchema } from "@/constants/schema";
+import { LENS_VALIDATION_SCHEMA } from "@/constants/schema";
 import type { IlensItem } from "@/types/lens";
 import { CirclePlay, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -29,7 +29,7 @@ export default function LensItem({ id, name, desc, iconUrl, location, editLense,
 				<LensForm
 					initialValues={{ id, name, desc, iconUrl, location }}
 					onSubmit={handleEditLensSubmit}
-					validationSchema={lensValidationSchema}
+					validationSchema={LENS_VALIDATION_SCHEMA}
 					setEditable={setEditable}
 				/>
 			) : (

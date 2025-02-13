@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormConfig } from "@/constants/lensForm";
+import { FORM_CONFIG } from "@/constants/forms";
 import type { IlensItem } from "@/types/lens";
 import { useFormik } from "formik";
 import { PencilOff, Save } from "lucide-react";
@@ -46,7 +46,7 @@ export default function LensForm({
 	return (
 		<Card className="sm:w-lens-card">
 			<CardContent className=" overflow-y-auto h-52 pt-2">
-				{FormConfig.fields.map((itemField) => (
+				{FORM_CONFIG.lens.fields.map((itemField) => (
 					<div key={itemField.id}>
 						<Label htmlFor={itemField.name}>{itemField.label}</Label>
 						<Input

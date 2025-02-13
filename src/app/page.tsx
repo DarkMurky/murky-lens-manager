@@ -3,9 +3,10 @@ import LensAdd from "@/components/lens/lensAdd";
 import LensItem from "@/components/lens/lensItem";
 import LenseError from "@/components/lens/lenseError";
 import LenseLoading from "@/components/lens/lenseLoading";
-import { addLense, deleteLense, editLense, fetchLenses } from "@/services/lensService"; // Import the functions
-import type { IgetLensesResponse, IlensItem } from "@/types/lens";
+// import { addLense, deleteLense, editLense, fetchLenses } from "@/services/lensService"; // Import the functions
+import type { IlensItem } from "@/types/lens";
 import { useEffect, useState } from "react";
+import { addLenseAction, deleteLenseAction, editLenseAction, getLensesAction } from "../actions/lensActions";
 
 export default function Home() {
 	const [lenses, setLenses] = useState<IlensItem[]>([]);
@@ -13,18 +14,30 @@ export default function Home() {
 	const [error, setError] = useState<boolean>(false);
 
 	const handleEditLense = async (id: number, newLense: IlensItem) => {
-		await editLense(id, newLense);
-		setLenses((prevLenses) => prevLenses.map((lens) => (lens.id === id ? { ...lens, ...newLense } : lens)));
+		try {
+			const data = editLenseAction(id, newLense);
+			setLenses((prevLenses) => prevLenses.map((lens) => (lens.id === id ? { ...lens, ...newLense } : lens)));
+		} catch (err: unknown) {
+			setError(true);
+		}
 	};
 
 	const handleAddLense = async (newLense: IlensItem) => {
-		await addLense(newLense);
-		setLenses((prevLenses) => [...prevLenses, newLense]);
+		try {
+			const data = await await addLenseAction(newLense);
+			setLenses((prevLenses) => [...prevLenses, newLense]);
+		} catch (err: unknown) {
+			setError(true);
+		}
 	};
 
 	const handleDeleteLense = async (id: number) => {
-		await deleteLense(id);
-		setLenses((prevLenses) => prevLenses.filter((lens) => lens.id !== id));
+		try {
+			const data = await deleteLenseAction(id);
+			setLenses((prevLenses) => prevLenses.filter((lens) => lens.id !== id));
+		} catch (err: unknown) {
+			setError(true);
+		}
 	};
 
 	useEffect(() => {
@@ -32,8 +45,8 @@ export default function Home() {
 			setLoading(true);
 			setError(false);
 			try {
-				const data: IgetLensesResponse = await fetchLenses();
-				setLenses(data.payload);
+				const data = await getLensesAction();
+				if (data.payload) setLenses(data.payload);
 			} catch (err: unknown) {
 				setError(true);
 			} finally {

@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { lensValidationSchema } from "@/constants/schema";
+import { LENS_VALIDATION_SCHEMA } from "@/constants/schema";
 import type { IlensItem } from "@/types/lens";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function LensAdd({ addLense }: IlensAddProps) {
 				<LensForm
 					initialValues={{ id: 0, name: "", desc: "", iconUrl: "", location: "" }}
 					onSubmit={handleEditLensAdd}
-					validationSchema={lensValidationSchema}
+					validationSchema={LENS_VALIDATION_SCHEMA}
 					setOpenLensAdd={setOpenLensAdd}
 				/>
 			) : (

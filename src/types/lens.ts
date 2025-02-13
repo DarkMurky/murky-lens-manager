@@ -13,12 +13,8 @@ export interface IlensFormField {
 	placeholder: string;
 }
 
-export interface IformConfig {
-	fields: IlensFormField[];
-}
-
-export interface IgetLensesResponse {
-	success: true;
-	message: string;
-	payload: IlensItem[];
+export interface IlenseForm {
+	lens: {
+		fields: IlensFormField[];
+	};
 }
