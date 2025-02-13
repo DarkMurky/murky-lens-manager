@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormConfig } from "@/constants/userForm";
+import { FORM_CONFIG } from "@/constants/forms";
 import type { Ilogin, IloginUserFormField, Iregister, IregisterUserFormField } from "@/types/user";
 import { useFormik } from "formik";
 import { LogIn } from "lucide-react";
@@ -21,7 +21,7 @@ interface IlensFormProps {
 	setEditable?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function RegisterForm({ type, initialValues, onSubmit, validationSchema }: IlensFormProps) {
+export default function AuthForm({ type, initialValues, onSubmit, validationSchema }: IlensFormProps) {
 	const formik = useFormik<Iregister | Ilogin>({
 		initialValues,
 		onSubmit: (values) => {
@@ -31,7 +31,7 @@ export default function RegisterForm({ type, initialValues, onSubmit, validation
 	});
 
 	const fields: IloginUserFormField[] | IregisterUserFormField[] =
-		type === "login" ? FormConfig.login.fields : FormConfig.register.fields;
+		type === "login" ? FORM_CONFIG.login.fields : FORM_CONFIG.register.fields;
 
 	return (
 		<Card>

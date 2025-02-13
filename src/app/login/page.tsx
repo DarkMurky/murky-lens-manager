@@ -1,28 +1,37 @@
 "use client";
-
-import RegisterForm from "@/components/register/registerForm";
-import { loginValidationSchema } from "@/constants/schema";
-import type { Iregister } from "@/types/user";
+import { loginAction } from "@/actions/authActions";
+import AuthForm from "@/components/register/authForm";
+import { ROOT } from "@/constants/routes";
+import { LOGIN_VALIDATION_SCHEMA } from "@/constants/schema";
+import { useToast } from "@/hooks/use-toast";
+import type { Ilogin } from "@/types/user";
+import { redirect } from "next/navigation";
 
 export default function Login() {
-	const onSubmit = (values: Iregister) => {
-		console.log("hello", values);
+	const { toast } = useToast();
+
+	const onSubmit = async (values: Ilogin) => {
+		const data = await loginAction(values);
+		toast({
+			title: data.message,
+		});
+		if (data.success) {
+			redirect(ROOT);
+		}
 	};
 
-	const initialValues: Iregister = {
-		username: "",
+	const initialValues: Ilogin = {
 		email: "",
 		password: "",
-		confirmPassword: "",
 	};
 
 	return (
 		<div className="container mx-auto p-2 overflow-auto mb-main-offset sm:w-form-card">
-			<RegisterForm
+			<AuthForm
 				type="login"
 				initialValues={initialValues}
 				onSubmit={onSubmit}
-				validationSchema={loginValidationSchema}
+				validationSchema={LOGIN_VALIDATION_SCHEMA}
 			/>
 		</div>
 	);

@@ -1,12 +1,10 @@
 export interface Iregister {
-	username: string;
 	email: string;
 	password: string;
 	confirmPassword?: string;
 }
 
 export interface Ilogin {
-	username: string;
 	email: string;
 	password: string;
 }
