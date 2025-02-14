@@ -14,7 +14,7 @@ export const REQUEST_MESSAGES = {
 		success: "Successflly got all lenses",
 		error: "Could not get lenses",
 	},
-	removeLense: {
+	deleteLense: {
 		success: "Successflly removed the lense",
 		error: "Could not remove the lense",
 	},

@@ -15,6 +15,7 @@ export default function Register() {
 		const data = await registerAction(values);
 		toast({
 			title: data.message,
+			variant: data.success ? "default" : "destructive",
 		});
 		if (data.success) {
 			redirect(DEFAULT_REDIRECT);

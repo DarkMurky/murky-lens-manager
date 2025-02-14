@@ -55,13 +55,13 @@ export const deleteLenseAction = async (id: number): Promise<IgetResponse> => {
 		});
 		if (!res.ok) {
 			const errorData = await res.json();
-			console.error(REQUEST_MESSAGES.getLense.error, errorData);
-			return { ...errorData, message: REQUEST_MESSAGES.getLense.error };
+			console.error(REQUEST_MESSAGES.deleteLense.error, errorData);
+			return { ...errorData, message: REQUEST_MESSAGES.deleteLense.error };
 		}
 
 		const data = await res.json();
 
-		return { ...data, message: REQUEST_MESSAGES.getLense.success };
+		return { ...data, message: REQUEST_MESSAGES.deleteLense.success };
 	} catch (error) {
 		return handleUnexpectedError(error);
 	}
@@ -72,32 +72,45 @@ export const editLenseAction = async (id: number, newLense: IlensItem): Promise<
 
 	const accessToken = cookieStore.get("access-token")?.value || "";
 	const refreshToken = cookieStore.get("refresh-token")?.value || "";
+
 	try {
-		const res = await fetch(`${BASE_URL}${REQUEST_PATHS.editLense(id)}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				"access-token": accessToken,
-				"refresh-token": refreshToken,
-			},
-			body: JSON.stringify(newLense),
-			credentials: "include",
-		});
-		if (!res.ok) {
-			const errorData = await res.json();
-			console.error(REQUEST_MESSAGES.getLense.error, errorData);
-			return { ...errorData, message: REQUEST_MESSAGES.getLense.error };
+		try {
+			const res = await fetch(`${BASE_URL}${REQUEST_PATHS.editLense(id)}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					"access-token": accessToken,
+					"refresh-token": refreshToken,
+				},
+				body: JSON.stringify(newLense),
+				credentials: "include",
+			});
+
+			if (!res.ok) {
+				const errorData = await res.json();
+				console.error(REQUEST_MESSAGES.updateLense.error, errorData);
+				return { ...errorData, message: REQUEST_MESSAGES.updateLense.error };
+			}
+
+			const data = await res.json();
+
+			return { ...data, message: REQUEST_MESSAGES.updateLense.success };
+		} catch (error) {
+			// return handleUnexpectedError(error);
+			return {
+				success: false,
+				message: "Unexcpected error occured, try again later.",
+			};
 		}
-
-		const data = await res.json();
-
-		return { ...data, message: REQUEST_MESSAGES.getLense.success };
 	} catch (error) {
-		return handleUnexpectedError(error);
+		return {
+			success: false,
+			message: "Unexcpected error occured, try again later.",
+		};
 	}
 };
 
-export const addLenseAction = async (newLense: IlensItem): Promise<IgetResponse> => {
+export const createLenseAction = async (newLense: IlensItem): Promise<IgetResponse> => {
 	const cookieStore = await cookies();
 
 	const accessToken = cookieStore.get("access-token")?.value || "";
@@ -115,13 +128,13 @@ export const addLenseAction = async (newLense: IlensItem): Promise<IgetResponse>
 		});
 		if (!res.ok) {
 			const errorData = await res.json();
-			console.error(REQUEST_MESSAGES.getLense.error, errorData);
-			return { ...errorData, message: REQUEST_MESSAGES.getLense.error };
+			console.error(REQUEST_MESSAGES.createLense.error, errorData);
+			return { ...errorData, message: REQUEST_MESSAGES.createLense.error };
 		}
 
 		const data = await res.json();
 
-		return { ...data, message: REQUEST_MESSAGES.getLense.success };
+		return { ...data, message: REQUEST_MESSAGES.createLense.success };
 	} catch (error) {
 		return handleUnexpectedError(error);
 	}

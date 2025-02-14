@@ -12,9 +12,8 @@ const ACCESS_TOKEN_COOKIE = "access-token";
 const REFRESH_TOKEN_COOKIE = "refresh-token";
 
 export const loginAction = async (credentials: Ilogin): Promise<IgetResponse> => {
+	const cookieStore = await cookies();
 	try {
-		const cookieStore = await cookies();
-
 		const res = await fetch(`${BASE_URL}${REQUEST_PATHS.login}`, {
 			method: "POST",
 			headers: {

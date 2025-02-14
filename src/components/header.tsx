@@ -29,17 +29,14 @@ export default function Header() {
 
 	const logoutUser = async () => {
 		const data = await logoutAction();
+
 		toast({
 			title: data.message,
+			variant: data.success ? "default" : "destructive",
 		});
 
-		const deleteCookie = (name: string) => {
-			document.cookie = `${name}=; Max-Age=0; path=/`;
-		};
-
-		deleteCookie("authenticated");
-
 		if (data.success) {
+			Cookies.remove("authenticated");
 			setIsAuthenticated(false);
 			redirect(DEFAULT_REDIRECT);
 		}

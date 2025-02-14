@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { check } from "./actions/authActions";
@@ -6,19 +7,21 @@ import { PUBLIC_ROUTES } from "./constants/routes";
 export default async function middleware(req: NextRequest) {
 	const { nextUrl } = req;
 
-	const session = await check();
-
-	const isAuthenticated = session.success;
-
-	const response = NextResponse.next();
-
-	response.cookies.set("authenticated", JSON.stringify(isAuthenticated));
+	const cookieStore = await cookies();
+	const authenticatedCookie = cookieStore.get("authenticated")?.value || "";
 
 	const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
 
-	if (isPublicRoute && isAuthenticated) return Response.redirect(new URL("/", nextUrl));
+	const session = await check();
+	const isAuthenticated = session.success;
 
-	if (!isAuthenticated && !isPublicRoute) return Response.redirect(new URL("/login", nextUrl));
+	if (authenticatedCookie) {
+		if (isPublicRoute && isAuthenticated) return Response.redirect(new URL("/", nextUrl));
+	} else {
+		if (!isAuthenticated && !isPublicRoute) return Response.redirect(new URL("/login", nextUrl));
+	}
+
+	const response = NextResponse.next();
 
 	return response;
 }

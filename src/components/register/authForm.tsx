@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { LogIn } from "lucide-react";
 
 import Link from "next/link";
+import type { FormEvent } from "react";
 import type * as yup from "yup";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
@@ -33,42 +34,49 @@ export default function AuthForm({ type, initialValues, onSubmit, validationSche
 	const fields: IloginUserFormField[] | IregisterUserFormField[] =
 		type === "login" ? FORM_CONFIG.login.fields : FORM_CONFIG.register.fields;
 
+	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		formik.handleSubmit();
+	};
+
 	return (
 		<Card>
-			<CardContent className="pt-2">
-				{fields.map((itemField) => (
-					<div key={itemField.id}>
-						<Label htmlFor={itemField.name}>{itemField.label}</Label>
-						<Input
-							className="h-8"
-							id={itemField.name}
-							name={itemField.name}
-							value={formik.values[itemField.name as keyof typeof formik.values]}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							type={itemField.name === "password" ? "password" : "text"}
-						/>
-						<div className="text-destructive text-input-error h-5">
-							{formik.errors[itemField.name as keyof typeof formik.errors] &&
-								formik.errors[itemField.name as keyof typeof formik.errors]}
+			<form onSubmit={handleFormSubmit}>
+				<CardContent className="pt-2">
+					{fields.map((itemField) => (
+						<div key={itemField.id}>
+							<Label htmlFor={itemField.name}>{itemField.label}</Label>
+							<Input
+								className="h-8"
+								id={itemField.name}
+								name={itemField.name}
+								value={formik.values[itemField.name as keyof typeof formik.values]}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								type={itemField.name === "password" ? "password" : "text"}
+							/>
+							<div className="text-destructive text-input-error h-5">
+								{formik.errors[itemField.name as keyof typeof formik.errors] &&
+									formik.errors[itemField.name as keyof typeof formik.errors]}
+							</div>
 						</div>
-					</div>
-				))}
-			</CardContent>
-			<CardFooter className="flex justify-between">
-				{type === "login" ? (
-					<Link href="/register" className="text-sm font-bold tracking-tight">
-						Don't have an account?
-					</Link>
-				) : (
-					<Link href="/login" className="text-sm font-bold tracking-tight">
-						Already have an account?
-					</Link>
-				)}
-				<Button className="w-form-button" type="submit" onClick={() => formik.handleSubmit()}>
-					<LogIn />
-				</Button>
-			</CardFooter>
+					))}
+				</CardContent>
+				<CardFooter className="flex justify-between">
+					{type === "login" ? (
+						<Link href="/register" className="text-sm font-bold tracking-tight">
+							Don't have an account?
+						</Link>
+					) : (
+						<Link href="/login" className="text-sm font-bold tracking-tight">
+							Already have an account?
+						</Link>
+					)}
+					<Button className="w-form-button" type="submit">
+						<LogIn />
+					</Button>
+				</CardFooter>
+			</form>
 		</Card>
 	);
 }

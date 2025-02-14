@@ -5,6 +5,7 @@ import { ROOT } from "@/constants/routes";
 import { LOGIN_VALIDATION_SCHEMA } from "@/constants/schema";
 import { useToast } from "@/hooks/use-toast";
 import type { Ilogin } from "@/types/user";
+import Cookies from "js-cookie";
 import { redirect } from "next/navigation";
 
 export default function Login() {
@@ -12,10 +13,14 @@ export default function Login() {
 
 	const onSubmit = async (values: Ilogin) => {
 		const data = await loginAction(values);
+
 		toast({
 			title: data.message,
+			variant: data.success ? "default" : "destructive",
 		});
+
 		if (data.success) {
+			Cookies.set("authenticated", "true");
 			redirect(ROOT);
 		}
 	};
