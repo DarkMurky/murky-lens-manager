@@ -1,9 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormConfig } from "@/constants/lensForm";
-import type { IlensItem } from "@/types";
+import { FORM_CONFIG } from "@/constants/forms";
+import type { IlensItem } from "@/types/lens";
 import { useFormik } from "formik";
 import { PencilOff, Save } from "lucide-react";
+import type { FormEvent } from "react";
 import type * as yup from "yup";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
@@ -43,34 +44,41 @@ export default function LensForm({
 		if (setEditable) setEditable(false);
 	};
 
+	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		formik.handleSubmit();
+	};
+
 	return (
 		<Card className="sm:w-lens-card">
-			<CardContent className=" overflow-y-auto h-52 pt-2">
-				{FormConfig.fields.map((itemField) => (
-					<div key={itemField.id}>
-						<Label htmlFor={itemField.name}>{itemField.label}</Label>
-						<Input
-							className="h-6"
-							id={itemField.name}
-							name={itemField.name}
-							value={formik.values[itemField.name]}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-						/>
-						<div className="text-destructive text-input-error h-5">
-							{formik.errors[itemField.name] && formik.errors[itemField.name]}
+			<form onSubmit={handleFormSubmit}>
+				<CardContent className=" overflow-y-auto h-52 pt-2">
+					{FORM_CONFIG.lens.fields.map((itemField) => (
+						<div key={itemField.id}>
+							<Label htmlFor={itemField.name}>{itemField.label}</Label>
+							<Input
+								className="h-6"
+								id={itemField.name}
+								name={itemField.name}
+								value={formik.values[itemField.name]}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+							/>
+							<div className="text-destructive text-input-error h-5">
+								{formik.errors[itemField.name] && formik.errors[itemField.name]}
+							</div>
 						</div>
-					</div>
-				))}
-			</CardContent>
-			<CardFooter className="flex justify-between h-14">
-				<Button className="w-form-button" type="button" variant="destructive" onClick={() => cancelForm()}>
-					<PencilOff />
-				</Button>
-				<Button className="w-form-button" type="submit" onClick={() => formik.handleSubmit()}>
-					<Save />
-				</Button>
-			</CardFooter>
+					))}
+				</CardContent>
+				<CardFooter className="flex justify-between h-14">
+					<Button className="w-form-button" type="button" variant="destructive" onClick={() => cancelForm()}>
+						<PencilOff />
+					</Button>
+					<Button className="w-form-button" type="submit">
+						<Save />
+					</Button>
+				</CardFooter>
+			</form>
 		</Card>
 	);
 }
