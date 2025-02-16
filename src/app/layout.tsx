@@ -19,45 +19,43 @@ const geistMono = localFont({
 export const metadata: Metadata = {
 	title: "Lens Manager",
 	description: "App which helps you manage your web applications",
-  
-	icons: {
-	  icon: [
-		{
-		  rel: "icon",
-		  type: "image/ico",
-		  url: "/favicon/favicon.ico",
-		},
-		{
-		  rel: "icon",
-		  type: "image/png",
-		  sizes: "16x16",
-		  url: "/favicon/favicon-16x16.png",
-		},
-		{
-		  rel: "icon",
-		  type: "image/png",
-		  sizes: "32x32",
-		  url: "/favicon/favicon-32x32.png",
-		},
-		{
-		  rel: "icon",
-		  type: "image/png",
-		  sizes: "192x192",
-		  url: "/favicon/android-chrome-192x192.png",
-		},
-		{
-		  rel: "icon",
-		  type: "image/png",
-		  sizes: "512x512",
-		  url: "/favicon/android-chrome-512x512.png",
-		},
-	  ],
-	},
-  
-	manifest: "/favicon/site.webmanifest",
-  };
 
-console.log("TEST1", process.env.NEXT_PUBLIC_DB_HOST);
+	icons: {
+		icon: [
+			{
+				rel: "icon",
+				type: "image/ico",
+				url: "/favicon/favicon.ico",
+			},
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "16x16",
+				url: "/favicon/favicon-16x16.png",
+			},
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "32x32",
+				url: "/favicon/favicon-32x32.png",
+			},
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "192x192",
+				url: "/favicon/android-chrome-192x192.png",
+			},
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "512x512",
+				url: "/favicon/android-chrome-512x512.png",
+			},
+		],
+	},
+
+	manifest: "/favicon/site.webmanifest",
+};
 
 export default function RootLayout({
 	children,

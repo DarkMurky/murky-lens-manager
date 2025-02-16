@@ -11,8 +11,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_DB_HOST;
 const ACCESS_TOKEN_COOKIE = "access-token";
 const REFRESH_TOKEN_COOKIE = "refresh-token";
 
-console.log("TEST2", process.env.NEXT_PUBLIC_DB_HOST)
-
 export const loginAction = async (credentials: Ilogin): Promise<IgetResponse> => {
 	const cookieStore = await cookies();
 	try {
