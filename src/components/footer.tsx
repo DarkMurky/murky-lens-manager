@@ -9,15 +9,11 @@ export default function Footer() {
 			<div>
 				<div className="flex h-5 items-center text-sm space-x-4 ">
 					<Link href="/about">
-						<Button className="bg-primary text-primary-foreground" variant="ghost">
-							About
-						</Button>
+						<Button className="bg-primary text-primary-foreground">About</Button>
 					</Link>
 					<Separator orientation="vertical" />
-					<Link href="/github">
-						<Button className="bg-primary text-primary-foreground" variant="ghost">
-							GitHub
-						</Button>
+					<Link href="https://github.com/DarkMurky/murky-lens-manager" target="_blank">
+						<Button className="bg-primary text-primary-foreground">GitHub</Button>
 					</Link>
 				</div>
 			</div>
