@@ -29,8 +29,8 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "NEXT_PUBLIC_DB_HOST=https://dev.cursetheweb.online" > .env
-          echo "NODE_ENV=production" > .env
+          echo "NEXT_PUBLIC_DB_HOST=https://prod.cursetheweb.online" >> .env
+          echo "NODE_ENV=development" >> .env
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -68,7 +68,20 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-            terraform_version: 1.10.4
+            terraform_version: 1.10.5
+        id: install_terraform
+
+      - name: Set up helm
+        uses: azure/setup-helm@v4.2.0
+        with:
+          version: v3.17.0
+        id: install_helm
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.32.1
+        id: install_kubectl
 
       - name: Terraform init and validate
         working-directory: ./k8s/terraform
