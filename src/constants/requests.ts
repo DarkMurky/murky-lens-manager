@@ -40,6 +40,6 @@ export const REQUEST_MESSAGES = {
 	},
 	register: {
 		success: "Successflly created your new account",
-		error: "Could not create an account",
+		error: "Could not create an account, user may already exist",
 	},
 };
