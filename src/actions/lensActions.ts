@@ -74,39 +74,28 @@ export const editLenseAction = async (id: number, newLense: IlensItem): Promise<
 	const refreshToken = cookieStore.get("refresh-token")?.value || "";
 
 	try {
-		try {
-			const res = await fetch(`${BASE_URL}${REQUEST_PATHS.editLense(id)}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					"access-token": accessToken,
-					"refresh-token": refreshToken,
-				},
-				body: JSON.stringify(newLense),
-				credentials: "include",
-			});
+		const res = await fetch(`${BASE_URL}${REQUEST_PATHS.editLense(id)}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				"access-token": accessToken,
+				"refresh-token": refreshToken,
+			},
+			body: JSON.stringify(newLense),
+			credentials: "include",
+		});
 
-			if (!res.ok) {
-				const errorData = await res.json();
-				console.error(REQUEST_MESSAGES.updateLense.error, errorData);
-				return { ...errorData, message: REQUEST_MESSAGES.updateLense.error };
-			}
-
-			const data = await res.json();
-
-			return { ...data, message: REQUEST_MESSAGES.updateLense.success };
-		} catch (error) {
-			// return handleUnexpectedError(error);
-			return {
-				success: false,
-				message: "Unexcpected error occured, try again later.",
-			};
+		if (!res.ok) {
+			const errorData = await res.json();
+			console.error(REQUEST_MESSAGES.updateLense.error, errorData);
+			return { ...errorData, message: REQUEST_MESSAGES.updateLense.error };
 		}
+
+		const data = await res.json();
+
+		return { ...data, message: REQUEST_MESSAGES.updateLense.success };
 	} catch (error) {
-		return {
-			success: false,
-			message: "Unexcpected error occured, try again later.",
-		};
+		return handleUnexpectedError(error);
 	}
 };
 
