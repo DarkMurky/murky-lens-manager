@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { logoutAction } from "@/actions/authActions";
+import { AUTHENTICATED_COOKIE } from "@/constants/cookies";
 import { DEFAULT_REDIRECT } from "@/constants/routes";
 import { useToast } from "@/hooks/use-toast";
 import Cookies from "js-cookie";
@@ -14,7 +15,7 @@ import Cookies from "js-cookie";
 export default function Header() {
 	const { toast } = useToast();
 
-	const [authToken, setAuthToken] = useState(Cookies.get("authenticated"));
+	const [authToken, setAuthToken] = useState(Cookies.get(AUTHENTICATED_COOKIE));
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Needs authToken in dependencies to correctly update auth status
@@ -22,7 +23,7 @@ export default function Header() {
 		setIsAuthenticated(sessionCookie === "true");
 	}, [authToken]);
 
-	const sessionCookie = Cookies.get("authenticated");
+	const sessionCookie = Cookies.get(AUTHENTICATED_COOKIE);
 	if (authToken !== sessionCookie) {
 		setAuthToken(sessionCookie);
 	}
@@ -36,7 +37,7 @@ export default function Header() {
 		});
 
 		if (data.success) {
-			Cookies.remove("authenticated");
+			Cookies.remove(AUTHENTICATED_COOKIE);
 			setIsAuthenticated(false);
 			redirect(DEFAULT_REDIRECT);
 		}

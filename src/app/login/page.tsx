@@ -1,6 +1,7 @@
 "use client";
 import { loginAction } from "@/actions/authActions";
 import AuthForm from "@/components/register/authForm";
+import { AUTHENTICATED_COOKIE } from "@/constants/cookies";
 import { ROOT } from "@/constants/routes";
 import { LOGIN_VALIDATION_SCHEMA } from "@/constants/schema";
 import { useToast } from "@/hooks/use-toast";
@@ -20,7 +21,7 @@ export default function Login() {
 		});
 
 		if (data.success) {
-			Cookies.set("authenticated", "true");
+			Cookies.set(AUTHENTICATED_COOKIE, "true");
 			redirect(ROOT);
 		}
 	};
