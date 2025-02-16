@@ -1,47 +1,71 @@
 "use client";
-import LenseError from "@/components/lens/lenseError";
 import LensAdd from "@/components/lens/lensAdd";
 import LensItem from "@/components/lens/lensItem";
+import LenseError from "@/components/lens/lenseError";
 import LenseLoading from "@/components/lens/lenseLoading";
-import { fetchLenses, editLense, addLense, deleteLense } from "@/services/lensService";
-import type { IgetLensesResponse, IlensItem } from "@/types";
+import { useToast } from "@/hooks/use-toast";
+import type { IlensItem } from "@/types/lens";
 import { useEffect, useState } from "react";
+import { createLenseAction, deleteLenseAction, editLenseAction, getLensesAction } from "../actions/lensActions";
 
 export default function Home() {
+	const { toast } = useToast();
+
 	const [lenses, setLenses] = useState<IlensItem[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 
 	const handleEditLense = async (id: number, newLense: IlensItem) => {
-		await editLense(id, newLense);
+		const data = await editLenseAction(id, newLense);
+
 		setLenses((prevLenses) => prevLenses.map((lens) => (lens.id === id ? { ...lens, ...newLense } : lens)));
+
+		toast({
+			title: data.message,
+			variant: data.success ? "default" : "destructive",
+		});
 	};
 
-	const handleAddLense = async (newLense: IlensItem) => {
-		await addLense(newLense);
-		setLenses((prevLenses) => [...prevLenses, newLense]);
+	const handleCreateLense = async (newLense: IlensItem) => {
+		const newLensId = lenses[lenses.length - 1] ? lenses[lenses.length - 1].id + 1 : lenses.length + 1;
+		const newLensWithId: IlensItem = { ...newLense, id: newLensId };
+
+		const data = await createLenseAction(newLensWithId);
+
+		setLenses((prevLenses) => [...prevLenses, newLensWithId]);
+
+		toast({
+			title: data.message,
+			variant: data.success ? "default" : "destructive",
+		});
 	};
 
 	const handleDeleteLense = async (id: number) => {
-		await deleteLense(id);
+		const data = await deleteLenseAction(id);
 		setLenses((prevLenses) => prevLenses.filter((lens) => lens.id !== id));
+		toast({
+			title: data.message,
+			variant: data.success ? "default" : "destructive",
+		});
 	};
 
 	useEffect(() => {
-		const fetchLensesData = async () => {
+		const getLenses = async () => {
 			setLoading(true);
 			setError(false);
-			try {
-				const data: IgetLensesResponse = await fetchLenses();
-				setLenses(data.payload);
-			} catch (err: unknown) {
-				setError(true);
-			} finally {
+
+			const data = await getLensesAction();
+
+			if (data.payload) setLenses(data.payload);
+			if (data.success) {
 				setLoading(false);
+			} else {
+				setLoading(false);
+				setError(true);
 			}
 		};
 
-		fetchLensesData();
+		getLenses();
 	}, []);
 
 	if (loading) {
@@ -58,7 +82,7 @@ export default function Home() {
 				{lenses.map((lensItem) => (
 					<LensItem editLense={handleEditLense} deleteLense={handleDeleteLense} {...lensItem} key={lensItem.id} />
 				))}
-				<LensAdd addLense={handleAddLense} />
+				<LensAdd addLense={handleCreateLense} />
 			</div>
 		</div>
 	);
