@@ -16,8 +16,8 @@ interface IuserFormLoginSchema extends Omit<Ilogin, "id"> {}
 
 interface IlensFormProps {
 	type: "login" | "register";
-	initialValues: Iregister | Ilogin; // Allow initialValues to be either type
-	onSubmit: (formData: Iregister | Ilogin) => void; // Allow onSubmit to accept either type
+	initialValues: Iregister | Ilogin;
+	onSubmit: (formData: Iregister | Ilogin) => void;
 	validationSchema: yup.ObjectSchema<IuserFormRegisterSchema | IuserFormLoginSchema>;
 	setEditable?: React.Dispatch<React.SetStateAction<boolean>>;
 }
