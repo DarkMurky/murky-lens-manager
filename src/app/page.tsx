@@ -11,8 +11,6 @@ import { createLenseAction, deleteLenseAction, editLenseAction, getLensesAction 
 export default function Home() {
 	const { toast } = useToast();
 
-	console.log("TEST1", process.env.NEXT_PUBLIC_DB_HOST);
-
 	const [lenses, setLenses] = useState<IlensItem[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
