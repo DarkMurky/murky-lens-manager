@@ -53,7 +53,7 @@ export default function AuthForm({ type, initialValues, onSubmit, validationSche
 								value={formik.values[itemField.name as keyof typeof formik.values]}
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
-								type={itemField.name === "password" ? "password" : "text"}
+								type={itemField.name === "password" || itemField.name === "confirmPassword" ? "password" : "text"}
 							/>
 							<div className="text-destructive text-input-error h-5">
 								{formik.errors[itemField.name as keyof typeof formik.errors] &&
