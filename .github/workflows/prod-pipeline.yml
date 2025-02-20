@@ -91,7 +91,7 @@ jobs:
       - name: Terraform plan
         working-directory: ./k8s/terraform
         run: |
-          terraform plan
+          terraform plan -var="environment=${{ env.ENVIRONMENT }}"
 
       - uses: trstringer/manual-approval@v1
         with:
@@ -118,8 +118,8 @@ jobs:
       - name: Create secrets file
         working-directory: ./k8s/murky-view-chart
         run: |
-          echo "db-user: ${{ secrets.DATABASE_USER}}" > secrets
-          echo "db-pass: ${{ secrets.DATABASE_PASSWORD }}" >> secrets
+          echo "db-user: ${{ secrets.POSTGRES_USER}}" > secrets
+          echo "db-pass: ${{ secrets.POSTGRES_PASSWORD }}" >> secrets
 
       - name: Deploy with Helm
         run: |
