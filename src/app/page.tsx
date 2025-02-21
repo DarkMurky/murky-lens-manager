@@ -77,7 +77,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className="container mx-auto p-2 overflow-auto mb-main-offset">
+		<div className="page-container">
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
 				{lenses.map((lensItem) => (
 					<LensItem editLense={handleEditLense} deleteLense={handleDeleteLense} {...lensItem} key={lensItem.id} />

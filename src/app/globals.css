@@ -66,3 +66,9 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+@layer components {
+	.page-container {
+	  @apply container mx-auto p-2 overflow-auto mb-main-offset;
+	}
+  }

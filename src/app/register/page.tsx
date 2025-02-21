@@ -29,7 +29,7 @@ export default function Register() {
 	};
 
 	return (
-		<div className="container mx-auto p-2 overflow-auto mb-main-offset sm:w-form-card">
+		<div className="page-container sm:w-form-card">
 			<AuthForm
 				type="register"
 				initialValues={initialValues}

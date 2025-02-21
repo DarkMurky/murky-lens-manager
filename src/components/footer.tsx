@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { GITHUB_REPOSITORY } from "@/constants/routes";
 import Link from "next/link";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
 						<Button className="bg-primary text-primary-foreground">About</Button>
 					</Link>
 					<Separator orientation="vertical" />
-					<Link href="https://github.com/DarkMurky/murky-lens-manager" target="_blank">
+					<Link href={GITHUB_REPOSITORY} target="_blank">
 						<Button className="bg-primary text-primary-foreground">GitHub</Button>
 					</Link>
 				</div>
