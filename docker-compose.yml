@@ -7,3 +7,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    networks:
+      - lens-view-network
+
+networks:
+  lens-view-network:
+    name: lens-view-network
