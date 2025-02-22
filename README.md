@@ -22,8 +22,8 @@ cd  murky-lens-manager
 
 Create .env file
 ```bash
-NEXT_PUBLIC_DB_HOST=<BACKEND URL>
-NODE_ENV=PRODUCTION
+NEXT_PUBLIC_DB_HOST=<http://lens-server:3001>
+NODE_ENV=production
 ```
 
 Compose using docker:
