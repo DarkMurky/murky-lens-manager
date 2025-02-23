@@ -16,10 +16,6 @@ export default async function middleware(req: NextRequest) {
 	const session = await check();
 	const isAuthenticated = session.success;
 
-	if (isAuthenticated) {
-		cookieStore.set(AUTHENTICATED_COOKIE, "true");
-	}
-
 	if (authenticatedCookie) {
 		if (isPublicRoute && isAuthenticated) return Response.redirect(new URL(ROOT, nextUrl));
 	} else {
